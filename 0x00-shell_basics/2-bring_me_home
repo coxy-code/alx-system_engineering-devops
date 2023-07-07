@@ -1,2 +1,2 @@
 #!/bin/bash
-cd $(echo $(getent passwd $(whoami)) | awk -F: '{print $6}')
+cd "$(echo ~)"
