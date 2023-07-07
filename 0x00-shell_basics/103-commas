@@ -1,2 +1,1 @@
-#!/bin/bash
-ls -ap1 | grep -vE '^\.{1,2}$' | paste -sd ',' - | sed 's/,/, /g'; echo
+ls -ap1 | grep -Ev "^\.{1,2}$" | sort -k1.2d | tr '\n' ',' | sed 's/,$/\n/'
