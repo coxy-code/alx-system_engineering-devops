@@ -1,2 +1,2 @@
 #!/bin/bash
-ls -Ap1 | awk '{printf "%s,", $0}' | sed 's/,$/\n/'
+echo "$(pwd)/,$(ls -a | sort -t . -k 1,1n -k 2,2n | sed 's/\.$//' | sed 's/\/$//' | tr '\n' ',')"
