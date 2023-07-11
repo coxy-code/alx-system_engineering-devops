@@ -1,2 +1,2 @@
 #!/bin/bash
-IFS=":" read -ra DIR <<< "$PATH"; count=0; for i in "${DIR[@]}"; do [[ -n "$i" ]] && ((count++)); done; echo "$count"
+echo "$PATH" | tr -cd ":" | wc -c
