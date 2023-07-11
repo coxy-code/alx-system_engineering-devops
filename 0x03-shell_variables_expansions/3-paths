@@ -1,2 +1,16 @@
 #!/bin/bash
-IFS=':' read -ra DIRS <<< "$PATH"; echo "${#DIRS[@]}"
+
+path="$PATH:"
+count=0
+
+while [[ $path == *:* ]]; do
+  current="${path%%:*}"
+  path="${path#*:}"
+
+  if [[ $current != "" ]]; then
+    ((count++))
+  fi
+done
+
+echo $count
+
