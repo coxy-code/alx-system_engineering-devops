@@ -1,0 +1,2 @@
+#!/bin/bash
+echo "bestchol#$(echo "obase=bestchol; ibase=water; $(echo $WATER | tr -d '[:alpha:]')" | bc)"
