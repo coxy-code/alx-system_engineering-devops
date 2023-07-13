@@ -1,9 +1,2 @@
 #!/bin/bash
-cat /etc/passwd
-echo "##"
-echo "# Host Database"
-echo "#"
-echo "# localhost is used to configure the loopback interface"
-echo "# when the system is booting. Do not change this entry."
-echo "##"
-cat /etc/hosts
+echo -e "Content of /etc/passwd:\n$(cat /etc/passwd)\n\nContent of /etc/hosts:\n$(cat /etc/hosts)"
