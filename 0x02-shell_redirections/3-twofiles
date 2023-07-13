@@ -1,2 +1,2 @@
 #!/bin/bash
-echo -e "Content of /etc/passwd:\n$(cat /etc/passwd)\n\nContent of /etc/hosts:\n$(cat /etc/hosts)"
+{ echo "Content of /etc/passwd:"; cat /etc/passwd; echo ""; echo "Content of /etc/hosts:"; cat /etc/hosts; } | sed -e '2s/^/##/' -e '5s/^/##/'
