@@ -1,38 +1,22 @@
 #!/usr/bin/env bash
-# Configure Nginx server to give error 404 page
+# customizing 404 page
+
 apt-get update
-apt-get -y install nginx
-ufw allow 'Nginx HTTP'
-sudo chmod -R 755 /var/www
-echo 'Hello World' > /var/www/html/index.html
+apt-get install -y nginx
 
-new_config=\
-"server {
-        listen 80 default_server;
-        listen [::]:80 default_server;
-               root /var/www/html;
-        index index.html index.htm index.nginx-debian.html;
-        server_name _;
-        location / {
-                try_files \$uri \$uri/ =404;
-        }
-        error_page 404 /404.html;
-        location  /404.html {
-            internal;
-        }
-        
-        if (\$request_filename ~ redirect_me){
-            rewrite ^ https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;
-        }
-}
-"
-echo "Ceci n'est pas une page" > /var/www/html/404.html
+echo "Hello World!" | sudo tee /var/www/html/indel.html
 
-echo "$new_config" > /etc/nginx/sites-available/default
+string_for_replacement="server_name _;\n\trewrite ^\/redirect_me https:\/\/github.com\/coxy-code;"
+sudo sed -i "s/server_name _;/$string_for_replacement/" /etc/nginx/sites-enabled/default
 
-if [ "$(pgrep nginx)" -le 0 ];
-then
-    sudo service nginx start
-else
-   sudo service nginx restart
-fi;
+#creating a 404 error page
+
+echo "this is not the page" | sudo tee /var/www/html/404.html
+
+string_for_replacement="listen 80 default_server;\n\terror_page 404 \/404.html;\n\tlocation = \/404.html;{\n\troot \/var/www/html;\n\t\tinternal;\n\t}"
+
+sudo sed -i "s|listen 80 default_server;|$string_for_replacement|" /etc/nginx/sites-enabled/default
+
+#restart nginx after implementing changes
+
+sudo service nginx restart
